@@ -70,6 +70,20 @@ public abstract class BaseGenerator<T> extends RichParallelSourceFunction<T>
 
     final Object lock = ctx.getCheckpointLock();
 
+    // initialization
+    while (running) {
+      T event = randomInitEvent(rnd, id);
+      if (event == null) {
+        break;
+      }
+
+      //noinspection SynchronizationOnLocalVariableOrMethodParameter
+      synchronized (lock) {
+        ctx.collect(event);
+        id += numberOfParallelSubtasks;
+      }
+    }
+
     while (running) {
       T event = randomEvent(rnd, id);
 
@@ -111,6 +125,10 @@ public abstract class BaseGenerator<T> extends RichParallelSourceFunction<T>
 
       id = max + getRuntimeContext().getIndexOfThisSubtask();
     }
+  }
+
+  public T randomInitEvent(SplittableRandom rnd, long id) {
+    return null;
   }
 
   public abstract T randomEvent(SplittableRandom rnd, long id);

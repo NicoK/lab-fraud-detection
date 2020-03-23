@@ -59,12 +59,21 @@ public class RulesStaticJsonGenerator extends BaseGenerator<String> {
             + "\"windowMinutes\":\"1440\"}",
       };
 
+  public RulesStaticJsonGenerator() {
+    super(1);
+  }
+
   @Override
-  public String randomEvent(SplittableRandom rnd, long id) {
+  public String randomInitEvent(SplittableRandom rnd, long id) {
     if (id >= 0 && id < RULES.length) {
       return RULES[(int) id];
     } else {
       return null;
     }
+  }
+
+  @Override
+  public String randomEvent(SplittableRandom rnd, long id) {
+    return null;
   }
 }
