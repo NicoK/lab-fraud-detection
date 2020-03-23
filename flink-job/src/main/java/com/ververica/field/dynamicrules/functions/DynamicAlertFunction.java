@@ -117,8 +117,14 @@ public class DynamicAlertFunction
       long aggregateResult = aggregator.getLocalValue();
       boolean ruleResult = rule.apply(aggregateResult);
 
-      log.trace(
-          "Rule {} | {} : {} -> {}", rule.getRuleId(), value.getKey(), aggregateResult, ruleResult);
+      if (log.isTraceEnabled()) {
+        log.trace(
+            "Rule {} | {} : {} -> {}",
+            rule.getRuleId(),
+            value.getKey(),
+            aggregateResult,
+            ruleResult);
+      }
 
       if (ruleResult) {
         if (COUNT_WITH_RESET.equals(rule.getAggregateFieldName())) {
