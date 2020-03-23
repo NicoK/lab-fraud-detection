@@ -31,7 +31,7 @@ public class LongToMoneyJsonSerializer extends JsonSerializer<Long> {
     jsonGenerator.writeNumber(longToMoney(aLong));
   }
 
-  public static BigDecimal longToMoney(Long aLong) {
+  public static BigDecimal longToMoney(long aLong) {
     return BigDecimal.valueOf(aLong).scaleByPowerOfTen(-2);
   }
 }

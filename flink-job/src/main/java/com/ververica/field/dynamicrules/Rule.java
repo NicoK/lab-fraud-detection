@@ -56,7 +56,7 @@ public class Rule {
   private Integer windowMinutes;
   private ControlType controlType;
 
-  public Long getWindowMillis() {
+  public long getWindowMillis() {
     return Time.minutes(this.windowMinutes).toMilliseconds();
   }
 
@@ -84,8 +84,8 @@ public class Rule {
     }
   }
 
-  public long getWindowStartFor(Long timestamp) {
-    Long ruleWindowMillis = getWindowMillis();
+  public long getWindowStartFor(long timestamp) {
+    long ruleWindowMillis = getWindowMillis();
     return (timestamp - ruleWindowMillis);
   }
 

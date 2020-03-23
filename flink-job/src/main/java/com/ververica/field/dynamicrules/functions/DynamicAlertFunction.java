@@ -103,7 +103,7 @@ public class DynamicAlertFunction
 
     if (rule.getRuleState() == Rule.RuleState.ACTIVE) {
       Field aggregateField = transactionFields.get(rule.getAggregateFieldName());
-      Long windowStartForEvent = rule.getWindowStartFor(currentEventTime);
+      long windowStartForEvent = rule.getWindowStartFor(currentEventTime);
 
       long cleanupTime = (currentEventTime / 1000) * 1000;
       ctx.timerService().registerEventTimeTimer(cleanupTime);
@@ -114,7 +114,7 @@ public class DynamicAlertFunction
           aggregateValuesInState(stateEntry.getValue(), aggregator, rule, aggregateField);
         }
       }
-      Long aggregateResult = aggregator.getLocalValue();
+      long aggregateResult = aggregator.getLocalValue();
       boolean ruleResult = rule.apply(aggregateResult);
 
       log.trace(
@@ -173,7 +173,7 @@ public class DynamicAlertFunction
   }
 
   private boolean isStateValueInWindow(
-      Long stateEventTime, Long windowStartForEvent, long currentEventTime) {
+      long stateEventTime, long windowStartForEvent, long currentEventTime) {
     return stateEventTime >= windowStartForEvent && stateEventTime <= currentEventTime;
   }
 
@@ -227,7 +227,7 @@ public class DynamicAlertFunction
     try {
       Iterator<Long> keys = windowState.keys().iterator();
       while (keys.hasNext()) {
-        Long stateEventTime = keys.next();
+        long stateEventTime = keys.next();
         if (stateEventTime < threshold) {
           keys.remove();
         }

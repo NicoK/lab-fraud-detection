@@ -57,7 +57,7 @@ public class Transaction implements TimestampAssignable<Long> {
   public long paymentAmount;
 
   public PaymentType paymentType;
-  private Long ingestionTimestamp;
+  private long ingestionTimestamp;
 
   private static transient DateTimeFormatter timeFormatter =
       DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
