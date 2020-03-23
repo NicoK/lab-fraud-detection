@@ -185,12 +185,13 @@ public class DynamicAlertFunction
       throws Exception {
     if (COUNT.equals(rule.getAggregateFieldName())
         || COUNT_WITH_RESET.equals(rule.getAggregateFieldName())) {
+      Long one = 1L;
       for (int i = 0; i < inWindow.size(); ++i) {
-        aggregator.add(1L);
+        aggregator.add(one);
       }
     } else {
       for (Transaction event : inWindow) {
-        long aggregatedValue = FieldsExtractor.getByKeyAs(event, aggregateField);
+        Long aggregatedValue = FieldsExtractor.getByKeyAs(event, aggregateField);
         aggregator.add(aggregatedValue);
       }
     }
