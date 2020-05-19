@@ -174,9 +174,13 @@ public class RulesEvaluator {
     }
 
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
-    env.getCheckpointConfig().setCheckpointInterval(config.get(CHECKPOINT_INTERVAL));
-    env.getCheckpointConfig()
-        .setMinPauseBetweenCheckpoints(config.get(MIN_PAUSE_BETWEEN_CHECKPOINTS));
+
+    Integer checkpointInterval = config.get(CHECKPOINT_INTERVAL);
+    if (checkpointInterval >= 0) {
+      env.getCheckpointConfig().setCheckpointInterval(checkpointInterval);
+      env.getCheckpointConfig()
+          .setMinPauseBetweenCheckpoints(config.get(MIN_PAUSE_BETWEEN_CHECKPOINTS));
+    }
 
     return env;
   }
